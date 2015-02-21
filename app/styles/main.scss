@@ -1,0 +1,19 @@
+    body {
+      font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      margin: 0;
+    }
+
+    core-animated-pages {
+      position: absolute;
+      top: 50px;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      font-size: 72px;
+      overflow: hidden;
+    }
+
+    section > div {
+      height: 100%;
+      color: white;
+    }

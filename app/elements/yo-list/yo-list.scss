@@ -1,0 +1,15 @@
+/* Shadow DOM CSS Cheat Sheet */
+/* http://robdodson.me/blog/2014/04/10/shadow-dom-css-cheat-sheet */
+
+/* styles for the custom element itself - lowest specificity */
+:host {
+  display: block;
+}
+#hero1 {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  width: 300px;
+  height: 300px;
+  background-color: orange;
+}

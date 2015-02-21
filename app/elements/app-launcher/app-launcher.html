@@ -1,0 +1,36 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/core-toolbar/core-toolbar.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+
+<polymer-element name="app-launcher" attributes="">
+  <template>
+    <link rel="stylesheet" href="app-launcher.css">
+    
+    <core-header-panel flex>
+      <core-toolbar slide-down>
+        <paper-icon-button icon="menu"></paper-icon-button>
+      </core-toolbar>
+    </core-header-panel>
+
+    <core-selector horizontal center-justified layout>
+      <template repeat="{{ item in items }}">
+        <article horizontal center-justified layout class="app">
+          <h2><a href="/#/{{ item }}">{{ item }}</a></h2>
+        </article>
+      </template>
+    </core-selector>
+
+  </template>
+  <script>
+    (function () {
+      Polymer({
+        ready: function () {
+          this.items = [
+            'yo-greeting',
+            'yo-list',
+          ];
+        }
+      });
+    })();
+  </script>
+</polymer-element>
