@@ -23,7 +23,7 @@
 
 <body unresolved fullbleed layout vertical>
 
-  <app-router core-animated-pages transitions="hero-transition cross-fade slide-down">
+  <app-router core-animated-pages selected="{{photopage}}" transitions="hero-transition cross-fade" on-tap="{{albumTapped}}">
     <app-route path="/" import="/elements/app-launcher/app-launcher.html"></app-route>
     <app-route path="/yo-greeting" import="/elements/yo-greeting/yo-greeting.html"></app-route>
     <app-route path="/yo-list" import="/elements/yo-list/yo-list.html"></app-route>

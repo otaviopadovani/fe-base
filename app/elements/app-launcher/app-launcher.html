@@ -4,33 +4,29 @@
 
 <polymer-element name="app-launcher" attributes="">
   <template>
-    <link rel="stylesheet" href="app-launcher.css">
-    
-    <core-header-panel flex>
-      <core-toolbar slide-down>
-        <paper-icon-button icon="menu"></paper-icon-button>
-      </core-toolbar>
-    </core-header-panel>
+        <style>
+        </style>
 
-    <core-selector horizontal center-justified layout>
-      <template repeat="{{ item in items }}">
-        <article horizontal center-justified layout class="app">
-          <h2><a href="/#/{{ item }}">{{ item }}</a></h2>
-        </article>
+        <core-animated-pages selected="{{photopage}}" transitions="hero-transition cross-fade" on-tap="{{albumTapped}}">
+            <yo-list>
+              <h2>Album name</h2>
+              <h4>x pictures</h4>
+            </yo-list>
+          <section>
+            <core-toolbar class="tall" style="background-image: url(http://lorempixel.com/output/cats-q-c-640-480-3.jpg); background-size: cover;background-position: 50% 50%;" hero-id="photo-hero" hero>
+              <div class="title bottom" hero hero-id="title-hero">Album name</div>
+            </core-toolbar>
+          </section>
+        </core-animated-pages>
+
       </template>
-    </core-selector>
 
-  </template>
-  <script>
-    (function () {
-      Polymer({
-        ready: function () {
-          this.items = [
-            'yo-greeting',
-            'yo-list',
-          ];
-        }
-      });
-    })();
-  </script>
+      <script>
+        Polymer("app-launcher", {
+          photopage: 0,
+          albumTapped: function(){
+            this.photopage++; 
+          }
+        });
+      </script>
 </polymer-element>

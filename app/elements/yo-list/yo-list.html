@@ -1,36 +1,35 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
 
 <polymer-element name="yo-list" attributes="">
-  <template>
-    <link rel="stylesheet" href="yo-list.css">
-    
-    <core-header-panel flex>
-      <core-toolbar cross-fade>
-        <a href="javascript:history.back()"><paper-icon-button icon="arrow-back"></paper-icon-button></a>
-      </core-toolbar>
-    </core-header-panel>
-      
-    <core-list>
-      <template repeat="{{ video in videos }}">
-        <div slide-down cross-fade style="border: 1px solid red">
-          {{ video.title }}
-        </div>
-      </template>
-    </core-list>
+      <template>
+        <style>
+          :host > div{
+            display: block;
+            position: relative;
+            background-color: grey;
+            width: 200px;
+          }
+          .description{
+            padding: 0px 10px;
+            color: white;
+          }
+          .cube{
+            width: 200px;
+            height: 200px;
+          }
+        </style>
 
-  </template>
-  <script>
-    (function () {
-      Polymer({
-        ready: function () {
-          this.videos = [
-            { 
-              title: "hola",
-              thumbnail: ""
-            }
-          ];
-        }
-      });
-    })();
-  </script>
+        <div vertical layout>
+          <div class="cube" style="background: url(http://lorempixel.com/output/cats-q-c-640-480-3.jpg) no-repeat; background-size: cover; background-position: center center;" hero-id="photo-hero" hero></div>
+          <div class="description">
+            <content select="h2" hero-id="title-hero" hero></content>
+            <content select="h4"></content>
+          </div>
+        </div>
+
+      </template>
+
+      <script>
+        Polymer("yo-list", {});
+      </script>
 </polymer-element>
