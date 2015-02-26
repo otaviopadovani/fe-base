@@ -3,11 +3,13 @@
 <polymer-element name="yo-greeting" attributes="">
   <template>
     <link rel="stylesheet" href="yo-greeting.css">
-    <section transitions="cross-fade-all">
-      <h1>{{ greeting }}, {{ greeting }}!</h1>
-      <span>Update text to change the greeting.</span>
-      <input type="text" value="{{ greeting }}">
+
+    <section>
+      <core-toolbar class="tall" style="background-image: url(http://lorempixel.com/output/cats-q-c-640-480-3.jpg); background-size: cover;background-position: 50% 50%;" hero-id="photo-hero" hero>
+        <div class="title bottom" hero hero-id="title-hero">Album name</div>
+      </core-toolbar>
     </section>
+    
   </template>
   <script>
     (function () {
@@ -17,3 +19,5 @@
     })();
   </script>
 </polymer-element>
+
+          
