@@ -1,0 +1,91 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../core-menu/core-menu.html">
+<link rel="import" href="../core-ajax/core-ajax.html">
+<link rel="import" href="../paper-dialog/paper-dialog.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../paper-dropdown/paper-dropdown.html">
+<link rel="import" href="../paper-toast/paper-toast.html">
+
+<link rel="import" href="video-manager-service.html">
+<link rel="import" href="video-item.html">
+<link rel="import" href="video-detail.html">
+
+<polymer-element name="video-manager">
+  <template>
+
+    <video-manager-service id="service"
+      video-list="{{videoList}}"
+      error="{{error}}">
+    </video-manager-service>
+
+    <paper-input
+      label="Search"
+      value="{{search}}">
+    </paper-input>
+
+    <div>
+      <template repeat="{{video in videoList}}">
+
+        <video-item
+          video="{{video}}"
+          hidden?="{{hideVideo(search, video.title)}}"
+          on-tap="{{handleTap}}">
+        </video-item>
+
+      </template>
+    </div>
+
+    <paper-dialog
+      transition="core-transition-top"
+      on-save="{{handleSave}}">
+      <video-detail
+        video="{{selectedVideo}}">
+      </video-detail>
+    </paper-dialog>
+
+    <div>
+      <paper-toast
+        text="{{error.error}}">
+      </paper-toast>
+    </div>
+
+  </template>
+  <script>
+    Polymer({
+
+      ready: function () {
+        this.$['service'].getVideos();
+      },
+
+      hideVideo: function (search, title) {
+        if (search === '') {
+          return false;
+        }
+
+        search = search.toLowerCase();
+
+        return title.toLowerCase().indexOf(search) < 0;
+      },
+
+      handleTap: function (event, detail, sender) {
+        var video = sender.templateInstance.model.video;
+        this.selectedVideo = video;
+
+        var dialog = this.shadowRoot.querySelector('paper-dialog');
+        if (dialog !== null) {
+          dialog.toggle();
+        }
+      },
+
+      errorChanged: function () {
+        this.shadowRoot.querySelector('paper-toast').show();
+      },
+
+      handleSave: function (event, detail, sender) {
+        sender.toggle();
+      }
+
+    });
+  </script>
+</polymer-element>

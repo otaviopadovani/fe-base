@@ -1,0 +1,103 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../core-ajax/core-ajax.html">
+<link rel="import" href="../paper-fab/paper-fab.html">
+<link rel="import" href="../paper-dialog/paper-dialog.html">
+<link rel="import" href="../paper-input/paper-input.html">
+
+<link rel="import" href="channel-service.html">
+<link rel="import" href="channel-card.html">
+
+<polymer-element name="channel-inspector">
+  <template>
+    <style>
+      paper-fab {
+        background: #5677fc;
+      }
+    </style>
+
+    <channel-service id="service"
+    channel="{{channelInfo}}"
+    error="{{error}}">
+    </channel-service>
+
+    <core-animated-pages fit selected="{{page}}" transitions="hero-transition">
+      
+      <footer style="z-index: 2; width: auto; height: auto; position: fixed; bottom: 0; right: 0; border: 1px solid red;">
+        <paper-fab icon="add"
+        hero 
+        hero-id="fab-to-dialog"
+        on-tap="{{handleAddChannel}}">
+        </paper-fab>
+      </footer>
+
+      <section fit vertical center layout style="border: 1px solid red; z-index: 2">
+        <div id="dialog" 
+        hero-id="fab-to-dialog" 
+        hero 
+        style="background: red; width: 40%; height: 200px;">
+          <h2>Add a Channel</h2>
+          <paper-input id="input-channel"
+          label="channel name"
+          value="{{channelName}}"
+          on-keyup="{{handleInput}}">
+          </div>
+        </div>
+      </section>
+
+    </core-animated-pages>
+
+    <section fit vertical center layout style="border: 1px solid blue; z-index: 1;">
+      <core-list slide-down>
+        <template repeat="{{channel in channelList}}">
+          <channel-card
+          channel="{{channel}}"
+          on-remove="{{handleRemove}}">
+          </channel-card>
+        </template>
+      </core-list>
+    </section>
+
+    <div>
+      <paper-toast
+      text="{{error.error}}">
+      </paper-toast>
+    </div>
+
+  </template>
+  <script>
+    Polymer({
+
+      channelList: [],
+      page: 0,
+
+      handleAddChannel: function () {
+        this.page = 1;
+        this.channelName = '';
+      },
+
+      handleInput: function (e) {
+        var code = e.keyCode ? e.keyCode : e.which;
+
+        if (code === 13 && this.channelName.length > 1) {
+          this.$.service.getChannel(this.channelName);
+          this.page = 0;
+        }
+      },
+
+      channelInfoChanged: function () {
+        this.channelList.push(this.channelInfo);
+      },
+
+      errorChanged: function () {
+        this.shadowRoot.querySelector('paper-toast').show();
+      },
+
+      handleRemove: function (event, detail, sender) {
+        var channel = sender.templateInstance.model.channel;
+        var ind = this.channelList.indexOf(channel);
+        this.channelList.splice(ind, 1);
+      }
+
+    });
+  </script>
+</polymer-element>

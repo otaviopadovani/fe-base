@@ -1,0 +1,96 @@
+<polymer-element name="video-detail" attributes="video">
+  <template>
+    <style>
+      paper-input {
+        font-size: 1.5em;
+        width: 100%;
+      }
+    </style>
+
+    <video-manager-service id="service"
+      error="{{error}}">
+    </video-manager-service>
+
+    <div>
+      <a href="//www.youtube.com/watch?v={{video.videoYid}}" target="_blank"><img src="//{{video.thumbnail}}" /></a>
+      <paper-input
+        value="{{videoTitle}}"
+      >
+      </paper-input>
+
+      <paper-dropdown-menu label="{{video.category}}"
+          on-core-select="{{onCategoryChanged}}"
+          id="dropdown-category">
+        <paper-dropdown class="dropdown">
+          <core-menu class="menu">
+            <template repeat="{{categoryOptions}}" valueattr="value">
+              <paper-item value="{{}}">{{}}</paper-item>
+            </template>
+          </core-menu>
+        </paper-dropdown>
+      </paper-dropdown-menu>
+
+      <div>
+        views: {{video.views}}
+      </div>
+      <div>
+        likes: {{video.likes}}
+      </div>
+
+      <paper-button id="btn-save"
+        on-tap="{{handleSave}}">
+        save
+      </paper-button>
+    </div>
+
+  </template>
+  <script>
+    Polymer({
+
+      categoryOptions: ['Gaming', 'Music', 'Comedy'],
+
+      attached: function () {
+        if (this.video !== undefined) {
+          this.videoTitle = this.video.title;
+          this.videoCategory = this.video.category;
+          this.originalVideoTitle = this.video.title;
+          this.originalVideoCategory = this.video.category;
+        }
+
+        this.$['btn-save'].setAttribute('disabled', true);
+      },
+
+      videoTitleChanged: function () {
+        this.handleChange();
+      },
+
+      onCategoryChanged: function (event, detail) {
+        if (!detail.isSelected) {
+          return;
+        }
+
+        this.videoCategory = this.$['dropdown-category'].selectedItemLabel;
+
+        this.handleChange();
+      },
+
+      handleChange: function () {
+        if (!this.originalVideoTitle || !this.originalVideoCategory) {
+          return;
+        }
+
+        if (this.videoTitle !== this.originalVideoTitle || this.videoCategory !== this.originalVideoCategory) {
+          this.video.title = this.videoTitle;
+          this.video.category = this.videoCategory;
+          this.$['btn-save'].removeAttribute('disabled');
+        } else {
+          this.$['btn-save'].setAttribute('disabled', true);
+        }
+      },
+
+      handleSave: function () {
+        this.fire('save');
+      }
+    });
+  </script>
+</polymer-element>

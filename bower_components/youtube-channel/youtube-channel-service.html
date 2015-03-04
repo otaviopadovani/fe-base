@@ -1,0 +1,40 @@
+<polymer-element name="youtube-channel-service" attributes="channel error">
+  <template>
+    <style>
+    :host {
+      display: none;
+    }
+    </style>
+    <core-ajax id="ajax"
+      url="{{url}}"
+      params="{{params}}"
+      handleAs="json"
+      on-core-response="{{channelLoaded}}"
+      on-core-error="{{channelFailed}}">
+    </core-ajax>
+
+  </template>
+  <script>
+    Polymer({
+
+      url: 'http://localhost/api/youtube/channel',
+
+      params: {},
+
+      channelFailed: function () {
+        this.error = this.$.ajax.error.response;
+      },
+
+      channelLoaded: function () {
+        this.channel = this.$.ajax.response;
+      },
+
+      getChannel: function (channelName) {
+        this.params.channelName = channelName;
+
+        this.$.ajax.go();
+      }
+
+    });
+  </script>
+</polymer-element>

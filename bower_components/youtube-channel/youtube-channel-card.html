@@ -1,0 +1,28 @@
+<polymer-element name="youtube-channel-card" attributes="channel">
+  <template>
+
+    <div>
+      <!-- <input type="hidden" value="{{channel.id}}" /> -->
+      <a href="//www.youtube.com/channel/{{channel.id}}" target="_blank"><img src="{{channel.avatar}}" /></a>
+      <a href="//www.youtube.com/channel/{{channel.id}}" target="_blank"><h1>{{channel.title}}</h1></a>
+      <div>
+        views: {{format(channel.views)}}
+      </div>
+      <div>
+        subscribers: {{format(channel.subs)}}
+      </div>
+    </div>
+
+  </template>
+  <script>
+    Polymer({
+      format: function (number) {
+        if (number === undefined) {
+          return undefined;
+        }
+
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      }
+    });
+  </script>
+</polymer-element>

@@ -5,7 +5,9 @@
     "core-elements": "Polymer/core-elements#^0.5.1",
     "paper-elements": "Polymer/paper-elements#^0.5.1",
     "polymer": "Polymer/polymer#^0.5.4",
-    "app-router": "~2.4.1"
+    "app-router": "~2.4.1",
+    "fe-video-manager": "ssh://git@stash.viso.tv:7999/wil/fe-video-manager.git#master",
+    "fe-channel-inspector": "ssh://git@stash.viso.tv:7999/wil/fe-channel-inspector.git#master"
   },
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#^2.2.3"

@@ -1,0 +1,60 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../core-ajax/core-ajax.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-toast/paper-toast.html">
+<link rel="import" href="../paper-button/paper-button.html">
+
+<link rel="import" href="youtube-channel-service.html">
+<link rel="import" href="youtube-channel-card.html">
+
+<polymer-element name="youtube-channel">
+  <template>
+
+    <paper-input
+      label="channel name"
+      value="{{channelName}}"
+      on-keyup="{{handleInput}}">
+    </paper-input>
+
+    <youtube-channel-service id="service"
+      channel="{{channel}}"
+      error="{{error}}">
+    </youtube-channel-service>
+
+    <youtube-channel-card
+      hidden?="{{channel==undefined}}"
+      channel="{{channel}}">
+    </youtube-channel-card>
+
+    <paper-toast
+      text="{{error.error}}">
+    </paper-toast>
+
+    <paper-button
+      on-tap="{{handleClear}}">
+      clear
+    </paper-button>
+
+  </template>
+  <script>
+    Polymer({
+
+      errorChanged: function () {
+        this.shadowRoot.querySelector('paper-toast').show();
+      },
+
+      handleInput: function (e) {
+        var code = e.keyCode ? e.keyCode : e.which;
+
+        if (code === 13 && this.channelName.length > 1) {
+          this.$.service.getChannel(this.channelName);
+        }
+      },
+
+      handleClear: function (e) {
+        this.channel = undefined;
+      }
+
+    });
+  </script>
+</polymer-element>

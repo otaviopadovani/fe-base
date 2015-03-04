@@ -1,0 +1,17 @@
+{
+  "name": "fe-module-channel",
+  "version": "0.0.0",
+  "private": true,
+  "main": "youtube-channel.html",
+  "dependencies": {
+    "core-elements": "Polymer/core-elements#^0.5.1",
+    "paper-elements": "Polymer/paper-elements#^0.5.1",
+    "polymer": "Polymer/polymer#^0.5.4"
+  },
+  "devDependencies": {
+    "web-component-tester": "Polymer/web-component-tester#^2.2.3",
+    "polymer-test-tools": "Polymer/polymer-test-tools#master",
+    "mocha": "~1.14.0",
+    "sinon": "http://sinonjs.org/releases/sinon-1.10.2.js"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "fe-channel-inspector",
+  "private": true,
+  "main": "channel-inspector.html",
+  "dependencies": {
+    "core-elements": "Polymer/core-elements#^0.5.1",
+    "paper-elements": "Polymer/paper-elements#^0.5.1",
+    "polymer": "Polymer/polymer#^0.5.4"
+  },
+  "devDependencies": {
+    "web-component-tester": "Polymer/web-component-tester#^2.2.3",
+    "polymer-test-tools": "Polymer/polymer-test-tools#master",
+    "mocha": "~1.14.0",
+    "sinon": "http://sinonjs.org/releases/sinon-1.10.2.js"
+  },
+  "_release": "1b1e55ca8e",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "1b1e55ca8ecf0a855f7d6f3c4171d7e388827981"
+  },
+  "_source": "ssh://git@stash.viso.tv:7999/wil/fe-channel-inspector.git",
+  "_target": "master",
+  "_originalSource": "ssh://git@stash.viso.tv:7999/wil/fe-channel-inspector.git"
+}

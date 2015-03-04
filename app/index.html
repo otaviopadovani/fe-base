@@ -21,12 +21,12 @@
   <!-- endreplace-->
 </head>
 
-<body unresolved fullbleed layout vertical>
+<body unresolved fullbleed vertical layout>
 
-  <app-router core-animated-pages transitions="hero-transition cross-fade slide-down">
+  <app-router core-animated-pages transitions="hero-transition cross-fade slide-down" selected="{{this.page}}">
     <app-route path="/" import="/elements/app-launcher/app-launcher.html"></app-route>
-    <app-route path="/yo-greeting" import="/elements/yo-greeting/yo-greeting.html"></app-route>
-    <app-route path="/yo-list" import="/elements/yo-list/yo-list.html"></app-route>
+    <app-route path="/channel-inspector" import="../../../bower_components/fe-channel-inspector/channel-inspector.html"></app-route>
+    <app-route path="/video-manager" import="../../../bower_components/fe-video-manager/video-manager.html"></app-route>
   </app-router>
 
   <!-- build:js /scripts/app.js -->

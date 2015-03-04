@@ -1,0 +1,52 @@
+<polymer-element name="video-manager-service" attributes="video-list error">
+  <template>
+    <style>
+    :host {
+      display: none;
+    }
+    </style>
+
+    <core-ajax id="get-video"
+      url="//10.30.50.10:8888/api/youtube/video"
+      handleAs="json"
+      on-core-response="{{videoListLoaded}}"
+      on-core-error="{{parseError}}">
+    </core-ajax>
+
+    <core-ajax id="patch-video"
+      method="POST"
+      url="//10.30.50.10:8888/api/youtube/video"
+      contentType="application/json"
+      body="{{video}}"
+      on-core-error="{{parseError}}">
+    </core-ajax>
+
+  </template>
+  <script>
+  Polymer({
+
+    parseError: function (event, detail, sender) {
+      this.error = sender.error.response;
+    },
+
+    videoListLoaded: function (event, detail, sender) {
+      this['video-list'] = sender.response['items'];
+    },
+
+    getVideos: function () {
+      this.$['get-video'].go();
+    },
+
+    patchVideo: function (video) {
+      this.videoId = video.id;
+      this.video = JSON.stringify({
+        title: video.title,
+        category: video.category
+      });
+
+      this.$['patch-video'].go();
+    }
+
+  });
+  </script>
+</polymer-element>
