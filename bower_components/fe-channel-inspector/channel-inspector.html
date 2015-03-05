@@ -7,11 +7,40 @@
 <link rel="import" href="channel-service.html">
 <link rel="import" href="channel-card.html">
 
-<polymer-element name="channel-inspector">
+<polymer-element flex vertical layout name="channel-inspector">
   <template>
     <style>
+      section {
+        z-index: 1;
+      }
+      core-toolbar {
+        z-index: 2;
+      }
       paper-fab {
         background: #5677fc;
+        position: fixed; 
+        bottom: 5%; 
+        right: 2.5%; 
+        width: auto; 
+        height: auto;
+        z-index: 2; 
+      }
+      .main-channel-card {
+        width: 48%;
+        text-align: center;
+      }
+      .dialog {
+        background: red;
+        box-shadow: 0px 0px 15px #000;
+        left: 50%;
+        width: 40%; 
+        height: 200px;
+        //margin: 0 0 0 -20%;
+        z-index: 3;
+      }
+      footer {
+        height: 10%;
+        z-index: 1;
       }
     </style>
 
@@ -20,21 +49,38 @@
     error="{{error}}">
     </channel-service>
 
-    <core-animated-pages fit selected="{{page}}" transitions="hero-transition">
-      
-      <footer style="z-index: 2; width: auto; height: auto; position: fixed; bottom: 0; right: 0; border: 1px solid red;">
-        <paper-fab icon="add"
-        hero 
-        hero-id="fab-to-dialog"
-        on-tap="{{handleAddChannel}}">
-        </paper-fab>
-      </footer>
+    <core-toolbar slide-down>
+      <a href="javascript:history.back()"><paper-icon-button icon="arrow-back" hero-id="voosh" hero></paper-icon-button></a>
+    </core-toolbar>
 
-      <section fit vertical center layout style="border: 1px solid red; z-index: 2">
-        <div id="dialog" 
+    <section layout flex horizontal>
+      <div layout flex vertical center-justified  
+      class="main-channel-card">
+        <a href="//www.youtube.com/channel/otaviopadovani" target="_blank"><img src="https://yt3.ggpht.com/-uFRliuBoSg8/AAAAAAAAAAI/AAAAAAAAAAA/A9SMw9T2j8g/s88-c-k-no/photo.jpg" /></a>
+        <h1><a href="//www.youtube.com/channel/otaviopadovani" target="_blank">Otavio Padovani</a></h1>
+        <div>
+          views: 67,903
+        </div>
+        <div>
+          subscribers: 5
+        </div>
+      </div>
+
+      <div vertical layout class="main-channel-card">
+        <template flex repeat="{{channel in channelList}}">
+          <channel-card
+          channel="{{channel}}"
+          on-remove="{{handleRemove}}">
+          </channel-card>
+        </template>
+      </div>
+    </section>
+
+    <core-animated-pages fit selected="{{page}}" transitions="hero-transition">
+      <section fit horizontal center center-justified layout style="border: 1px solid blue; z-index: 2">
+        <div class="dialog" 
         hero-id="fab-to-dialog" 
-        hero 
-        style="background: red; width: 40%; height: 200px;">
+        hero>
           <h2>Add a Channel</h2>
           <paper-input id="input-channel"
           label="channel name"
@@ -44,18 +90,14 @@
         </div>
       </section>
 
+      <footer>
+        <paper-fab icon="add"
+        hero 
+        hero-id="fab-to-dialog"
+        on-tap="{{handleAddChannel}}">
+        </paper-fab>
+      </footer>
     </core-animated-pages>
-
-    <section fit vertical center layout style="border: 1px solid blue; z-index: 1;">
-      <core-list slide-down>
-        <template repeat="{{channel in channelList}}">
-          <channel-card
-          channel="{{channel}}"
-          on-remove="{{handleRemove}}">
-          </channel-card>
-        </template>
-      </core-list>
-    </section>
 
     <div>
       <paper-toast
@@ -65,14 +107,22 @@
 
   </template>
   <script>
-    Polymer({
+    Polymer('channel-inspector', {
 
       channelList: [],
-      page: 0,
+      page: 1,
+
+      ready: function () {
+        paperInput = this.shadowRoot.querySelector('paper-input');
+
+        console.log(this.shadowRoot.querySelector('paper-input').focus())
+        paperInput.focus();
+      },
 
       handleAddChannel: function () {
-        this.page = 1;
+        this.page = 0;
         this.channelName = '';
+        //
       },
 
       handleInput: function (e) {
@@ -80,7 +130,7 @@
 
         if (code === 13 && this.channelName.length > 1) {
           this.$.service.getChannel(this.channelName);
-          this.page = 0;
+          this.page = 1;
         }
       },
 
