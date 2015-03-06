@@ -4,19 +4,44 @@
 
 <polymer-element name="app-launcher" attributes="">
   <template>
-    <link rel="stylesheet" href="app-launcher.css">
-    
-    <core-header-panel>
-      <core-toolbar slide-down>
-        <paper-icon-button icon="menu"></paper-icon-button>
-      </core-toolbar>
-    </core-header-panel>
+    <style>
+      .app {
+        border: 1px solid #ccc;
+        padding: 0;
+        margin: 0 10px;
+        width: 300px;
+        text-align: center;
+      }
+      img {
+        width: 70%;
+      }
+      core-selector {
+        padding: 5% 0;
+      }
+      h2 {
+        font-size: 20px;
+        padding: 7% 0;
+        margin: 7% 0 0 0;
+      }
+      .channel-inspector h2 {
+        background: #FFEB3B;
+      }
+      .video-manager h2 {
+        background: #FF5722;
+      }
+      a {
+        color: #333;
+        text-decoration: none;
+        font-weight: 400;
+      }
+    </style>
 
-    <core-selector horizontal center-justified layout>
+    <core-selector horizontal center-justified layout tile-cascade>
       <template repeat="{{ item in items }}">
-        <article horizontal center-justified layout class="app">
+        <div vertical layout class="app {{ item }}" cross-fade>
+          <a href="/#/{{ item }}"><img src="images/{{ item }}.svg" /></a>
           <h2><a href="/#/{{ item }}">{{ item }}</a></h2>
-        </article>
+        </div>
       </template>
     </core-selector>
 

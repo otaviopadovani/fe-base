@@ -5,6 +5,10 @@
         font-size: 1.5em;
         width: 100%;
       }
+      .video-thumbnail {
+        background: url("//{{video.thumbnail}}");
+        width: 100%;
+      }
     </style>
 
     <video-manager-service id="service"
@@ -12,7 +16,7 @@
     </video-manager-service>
 
     <div>
-      <a href="//www.youtube.com/watch?v={{video.videoYid}}" target="_blank"><img src="//{{video.thumbnail}}" /></a>
+      <a href="//www.youtube.com/watch?v={{video.videoYid}}" class="video-thumbnail" target="_blank"><img src="//{{video.thumbnail}}" /></a>
       <paper-input
         value="{{videoTitle}}"
       >

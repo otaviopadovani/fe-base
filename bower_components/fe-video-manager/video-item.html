@@ -1,16 +1,29 @@
 <polymer-element name="video-item" attributes="video">
   <template>
     <style>
-      img {
-        width: 120px;
+      figure {
+        display: inline-block;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        vertical-align: middle;
+      }
+      h2 {
+        display: inline-block;
+        font-size: 20px;
+        font-weight: 300;
+        color: white;
+      }
+      .item {
       }
     </style>
 
-    <div>
-      <img src="//{{video.thumbnail}}" />
-      <div>{{video.title}}</div>
+    <div tile-cascade>
+      <div class="item">
+        <figure style="background: url('//{{video.thumbnail}}') center; background-size: cover;"></figure>
+        <h2>{{video.title}}</h2>
+      </div>
     </div>
-
   </template>
   <script>
     Polymer({

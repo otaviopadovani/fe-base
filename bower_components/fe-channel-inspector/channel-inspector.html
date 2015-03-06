@@ -14,10 +14,12 @@
         z-index: 1;
       }
       core-toolbar {
+        background: #FF9800;
         z-index: 2;
       }
       paper-fab {
-        background: #5677fc;
+        background: #FF9800;
+        color: black;
         position: fixed; 
         bottom: 5%; 
         right: 2.5%; 
@@ -26,17 +28,35 @@
         z-index: 2; 
       }
       .main-channel-card {
-        width: 48%;
+        background: #333;
+      }
+      .card {
         text-align: center;
       }
+      .card h1 {
+        margin-bottom: 10px;
+      }
+      .card a {
+        color: white;
+        font-weight: 300;
+        text-decoration: none;
+      }
+      .card p {
+        color: white;
+        margin: 0;
+      }
       .dialog {
-        background: red;
+        background: #E65100;
         box-shadow: 0px 0px 15px #000;
         left: 50%;
-        width: 40%; 
-        height: 200px;
-        //margin: 0 0 0 -20%;
+        width: 30%; 
+        height: 150px;
+        text-align: center;
+        padding: 0 5%;
         z-index: 3;
+      }
+      paper-input {
+        width: 100%;
       }
       footer {
         height: 10%;
@@ -49,24 +69,19 @@
     error="{{error}}">
     </channel-service>
 
-    <core-toolbar slide-down>
-      <a href="javascript:history.back()"><paper-icon-button icon="arrow-back" hero-id="voosh" hero></paper-icon-button></a>
+    <core-toolbar slide-down >
+      <a href="javascript:history.back()"><paper-icon-button icon="arrow-back"></paper-icon-button></a>
     </core-toolbar>
 
-    <section layout flex horizontal>
-      <div layout flex vertical center-justified  
-      class="main-channel-card">
+    <section layout flex horizontal hero-id="expand" hero>
+      <div layout flex vertical center-justified class="main-channel-card card">
         <a href="//www.youtube.com/channel/otaviopadovani" target="_blank"><img src="https://yt3.ggpht.com/-uFRliuBoSg8/AAAAAAAAAAI/AAAAAAAAAAA/A9SMw9T2j8g/s88-c-k-no/photo.jpg" /></a>
         <h1><a href="//www.youtube.com/channel/otaviopadovani" target="_blank">Otavio Padovani</a></h1>
-        <div>
-          views: 67,903
-        </div>
-        <div>
-          subscribers: 5
-        </div>
+        <p>views: 67,903</p>
+        <p>subscribers: 5</p>
       </div>
 
-      <div vertical layout class="main-channel-card">
+      <div flex vertical layout cross-fade class="card">
         <template flex repeat="{{channel in channelList}}">
           <channel-card
           channel="{{channel}}"

@@ -23,10 +23,10 @@
 
 <body fullbleed vertical layout unresolved>
 
-  <app-router core-animated-pages transitions="hero-transition cross-fade slide-down">
-    <app-route path="/" import="/elements/app-launcher/app-launcher.html"></app-route>
-    <app-route vertical layout path="/channel-inspector" import="../../../bower_components/fe-channel-inspector/channel-inspector.html" style="border: 1px solid red"></app-route>
-    <app-route path="/video-manager" import="../../../bower_components/fe-video-manager/video-manager.html"></app-route>
+  <app-router core-animated-pages transitions="hero-transition cross-fade slide-down tile-cascade">
+    <app-route vertical layout path="/" import="/elements/app-launcher/app-launcher.html"></app-route>
+    <app-route vertical layout path="/channel-inspector" import="../../../bower_components/fe-channel-inspector/channel-inspector.html"></app-route>
+    <app-route vertical layout path="/video-manager" import="../../../bower_components/fe-video-manager/video-manager.html"></app-route>
   </app-router>
 
   <!-- build:js /scripts/app.js -->
