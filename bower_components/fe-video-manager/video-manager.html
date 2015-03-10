@@ -1,4 +1,5 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../core-drawer-panel/core-drawer-panel.html">
 <link rel="import" href="../core-header-panel/core-header-panel.html">
 <link rel="import" href="../core-menu/core-menu.html">
 <link rel="import" href="../core-ajax/core-ajax.html">
@@ -16,7 +17,7 @@
   <template>
     <style>
       core-toolbar {
-        background: #BF360C;
+        background: #F57C00;
         z-index: 2;
       }
     </style>
@@ -26,36 +27,44 @@
       error="{{error}}">
     </video-manager-service>
 
-    <core-header-panel flex mode="waterfall">
-      <core-toolbar slide-down>
-        <a href="javascript:history.back()"><paper-icon-button icon="arrow-back"</paper-icon-button></a>
-        <span flex></span>
-        <paper-input
-          label="Search"
-          value="{{search}}">
-        </paper-input>
-      </core-toolbar>
 
-      <core-list vertical layout cross-fade>
-        <template repeat="{{video in videoList}}">
+    <core-drawer-panel rightDrawer drawerWidth="30%" slide-down>
+      <core-header-panel drawer>
+        <div slide-from-right>
+          <video-detail 
+          video="{{selectedVideo}}">
+          </video-detail>
+        </div>
+      </core-header-panel>
 
-          <video-item
-            video="{{video}}"
-            hidden?="{{hideVideo(search, video.title)}}"
-            on-tap="{{handleTap}}">
-          </video-item>
+      <core-header-panel main>
+        <core-toolbar>
+          <a href="javascript:history.back()"><paper-icon-button icon="arrow-back"</paper-icon-button></a>
+          <button core-drawer-toggle>toggle drawer</button>
+          <span flex></span>
+          <paper-input
+            label="Search"
+            value="{{search}}">
+          </paper-input>
+        </core-toolbar>
 
-        </template>
+        <core-list vertical layout cross-fade>
+          <template repeat="{{video in videoList}}">
+            <video-item
+              video="{{video}}"
+              hidden?="{{hideVideo(search, video.title)}}"
+              on-tap="{{openVideo}}">
+            </video-item>
+          </template>
 
-      </core-list>
-    </core-header-panel>
+        </core-list>
+      </core-header-panel>
+    </core-drawer-panel>
 
     <paper-dialog
       transition="core-transition-top"
       on-save="{{handleSave}}">
-      <video-detail
-        video="{{selectedVideo}}">
-      </video-detail>
+
     </paper-dialog>
 
     <div>
@@ -82,14 +91,9 @@
         return title.toLowerCase().indexOf(search) < 0;
       },
 
-      handleTap: function (event, detail, sender) {
+      openVideo: function (event, detail, sender) {
         var video = sender.templateInstance.model.video;
         this.selectedVideo = video;
-
-        var dialog = this.shadowRoot.querySelector('paper-dialog');
-        if (dialog !== null) {
-          dialog.toggle();
-        }
       },
 
       errorChanged: function () {

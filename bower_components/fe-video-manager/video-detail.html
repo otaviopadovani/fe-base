@@ -1,13 +1,8 @@
 <polymer-element name="video-detail" attributes="video">
   <template>
     <style>
-      paper-input {
-        font-size: 1.5em;
-        width: 100%;
-      }
-      .video-thumbnail {
-        background: url("//{{video.thumbnail}}");
-        width: 100%;
+      img {
+        width: 100%
       }
     </style>
 
@@ -15,11 +10,10 @@
       error="{{error}}">
     </video-manager-service>
 
-    <div>
+    <div vertical layout flex style="border: 1px solid red">
       <a href="//www.youtube.com/watch?v={{video.videoYid}}" class="video-thumbnail" target="_blank"><img src="//{{video.thumbnail}}" /></a>
       <paper-input
-        value="{{videoTitle}}"
-      >
+        value="{{videoTitle}}">
       </paper-input>
 
       <paper-dropdown-menu label="{{video.category}}"
